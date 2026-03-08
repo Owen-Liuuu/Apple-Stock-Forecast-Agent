@@ -120,7 +120,7 @@ class StockPredictionService:
                 print(f'[CNN-LSTM] Failed to load: {e}')
                 self.cnn_model = None
         else:
-                print(f'[CNN-LSTM] Not found: {cnn_file}')
+            print(f'[CNN-LSTM] Not found: {cnn_file}')
 
         # Linear — try .h5 first, fallback to sklearn
         linear_file = _resolve(linear_path)
