@@ -157,7 +157,7 @@ def _is_stock_question(question: str) -> bool:
 def _call_gemini(prompt):
     api_key = os.getenv('GOOGLE_API_KEY', '').strip()
     if not api_key:
-        raise RuntimeError('GOOGLE_API_KEY is not set in .env')
+        raise RuntimeError('GOOGLE_API_KEY is not set in environment or Streamlit Secrets')
     last_error = None
     if google_genai is not None:
         try:
