@@ -131,12 +131,8 @@ st.markdown("""
 @st.cache_resource
 def load_service():
     return StockPredictionService()
-st.cache_resource.clear()
 service = load_service()
-st.write("MLP available:", service.model_available("MLP"))
-st.write("CNN-LSTM available:", service.model_available("CNN-LSTM"))
-st.write("LINEAR available:", service.model_available("LINEAR"))
-st.write("CNN debug:", service.cnn_debug)
+
 
 
 # ──────────────────────────────────────
