@@ -1,6 +1,6 @@
 # ◈ AI Investment Agent
 
-An intelligent investment analysis system for Apple (AAPL) stock that combines multiple deep learning models with LLM-powered reasoning to deliver actionable trading recommendations.
+An intelligent investment assistant that combines multiple deep learning models (MLP, CNN-LSTM, Linear Regression) with Google Gemini AI to provide comprehensive stock analysis and actionable investment recommendations.
 
 ## Architecture
 
@@ -9,17 +9,17 @@ An intelligent investment analysis system for Apple (AAPL) stock that combines m
                          │       agent_system.py        │
   ┌──────────────┐       │                             │       ┌──────────────┐
   │              │       │  Tool 1: Price Predictor    │       │              │
-  │   app.py     │──────▶│  Tool 2: Model Comparison   │──────▶│   Gemini     │
-  │  (Streamlit) │       │  Tool 3: Technical Analysis │       │  2.0 Flash   │
-  │              │◀──────│  Tool 4: Risk Assessment    │◀──────│              │
+  │   app.py     │─────▶│  Tool 2: Model Comparison   │─────▶│   Gemini     │
+  │  (Streamlit) │       │  Tool 3: Technical Analysis │       │  2.5 Flash   │
+  │              │◀─────│  Tool 4: Risk Assessment    │◀─────│              │
   └──────────────┘       └──────────────┬──────────────┘       └──────────────┘
                                         │
                          ┌──────────────▼──────────────┐
-                         │    prediction_service.py     │
+                         │    prediction_service.py    │
                          │                             │
-                         │  ┌───────┐ ┌────────┐ ┌──┐ │
-                         │  │  MLP  │ │CNN-LSTM│ │LR│ │
-                         │  └───────┘ └────────┘ └──┘ │
+                         │  ┌───────┐ ┌────────┐ ┌──┐  │
+                         │  │  MLP  │ │CNN-LSTM│ │LR│  │
+                         │  └───────┘ └────────┘ └──┘  │
                          │  + Technical Indicators     │
                          │  + Risk Engine              │
                          └─────────────────────────────┘
@@ -48,73 +48,65 @@ The frontend overlays all three forecasts on a single chart and displays a conse
 ## Quick Start
 
 ### 1. Prerequisites
-
 - Python 3.9+
 - `mlp_model_final.h5` (trained MLP weights)
 - `stock_prediction_cnn_lstm_plots/apple_stock_cnn_lstm_model.h5` (trained CNN-LSTM weights)
-- `apple_5yr_one1.csv` (historical AAPL data)
+- `apple_5yr_daily.csv` (historical AAPL data)
 - Google API key for Gemini
 
 ### 2. Install
-
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 3. Configure
-
 Create `.env` in the project root:
-
 ```env
 GOOGLE_API_KEY=your_key_here
 ```
 
 ### 4. Run
-
 ```bash
 streamlit run app.py
 ```
-
 Open `http://localhost:8501`.
 
-## Project Structure
-
-```
-ai_investment_agent/
-├── app.py                                          # Streamlit frontend
-├── agent_system.py                                 # LLM agent + tools
-├── prediction_service.py                           # Multi-model service
-├── mlp_model_final.h5                              # MLP weights
-├── stock_prediction_cnn_lstm_plots/
-│   └── apple_stock_cnn_lstm_model.h5               # CNN-LSTM weights
-├── apple_5yr_one1.csv                              # Price data
-├── cnn_lstm.py                                     # CNN-LSTM training script
-├── .env                                            # API keys (git-ignored)
-├── requirements.txt
-└── README.md
-```
+## 📁 Project Structure
+ai-investment-agent/
+│
+├── prediction_service.py      # Multi-model prediction service
+├── agent_system.py            # AI Agent with Google Gemini
+├── app.py                     # Streamlit web interface
+│
+├── Data/                      # Stock data
+│   └── apple_5yr_daily.csv       # 5 years of AAPL data
+│
+├── mlp_model_final.h5         # MLP neural network model
+├── cnn_lstm_model.h5          # CNN-LSTM hybrid model (optional)
+├── linear_model_final.h5      # Linear regression model (optional)
+│
+├── .env                       # API keys (create this, not in Git)
+├── requirements.txt           # Python dependencies
+└── README.md                  # This file
 
 ## Analysis Pipeline
-
 For every user query the agent runs four tools:
-
 1. **Price Predictor** — forecasts the next N days using the currently selected model (MLP, CNN-LSTM, or Linear).
 2. **Model Comparison** — runs all available models and reports trend, change %, and confidence for each, plus a consensus signal.
 3. **Technical Analysis** — RSI, MACD crossover, moving averages, and Bollinger Band positioning.
 4. **Risk Assessment** — annualised volatility, max drawdown, composite risk score, and position-sizing advice.
-
 Gemini receives all four outputs and returns a structured recommendation with reasoning, position size, and stop-loss rules.
 
-## Tech Stack
+## 🛠️ Technology Stack
 
-| Layer | Technology |
-|---|---|
-| Deep Learning | MLP + CNN-LSTM (Keras / TensorFlow) |
-| Baseline Model | Linear Regression (scikit-learn) |
-| Feature Engineering | pandas, NumPy, scikit-learn |
-| LLM Reasoning | Gemini 2.0 Flash (Google) |
-| Frontend | Streamlit + Plotly |
-| Config | python-dotenv |
+| Category | Technologies |
+|----------|-------------|
+| **Deep Learning** | TensorFlow/Keras (MLP, CNN-LSTM) |
+| **Machine Learning** | scikit-learn (Linear Regression) |
+| **AI Agent** | Google Gemini 2.5 Flash |
+| **Data Processing** | pandas, NumPy, MinMaxScaler |
+| **Frontend** | Streamlit, Plotly |
+| **Environment** | python-dotenv |
 
 ## Requirements
 
@@ -133,6 +125,3 @@ google-genai>=1.0.0
 
 This project is for **educational and demonstration purposes only**. It does not constitute financial advice. Stock predictions are inherently uncertain — never make investment decisions based solely on model outputs.
 
-## License
-
-MIT
