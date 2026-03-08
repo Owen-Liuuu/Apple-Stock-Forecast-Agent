@@ -68,6 +68,12 @@ class StockPredictionService:
         linear_path='linear_model_DO_NOT_LOAD.keras',
         data_path='Data/apple_5yr_daily.csv',
     ):
+        self.cnn_debug = {
+            "path": None,
+            "exists": False,
+            "loaded": False,
+            "error": "not initialized",
+        }
         base = Path(__file__).resolve().parent
         def _resolve(p):
             p = Path(p)
