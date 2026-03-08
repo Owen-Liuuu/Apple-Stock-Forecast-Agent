@@ -64,7 +64,7 @@ class StockPredictionService:
     def __init__(
         self,
         mlp_path='mlp_model_final.h5',
-        cnn_lstm_path='cnn_lstm_model.h5',
+        cnn_lstm_path='cnn_lstm_model.keras',
         linear_path='linear_model_final.h5',
         data_path='Data/apple_5yr_daily.csv',
     ):
