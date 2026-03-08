@@ -119,7 +119,7 @@ class StockPredictionService:
             except Exception as e:
                 print(f'[CNN-LSTM] Failed to load: {e}')
                 self.cnn_model = None
-            else:
+        else:
                 print(f'[CNN-LSTM] Not found: {cnn_file}')
 
         # Linear — try .h5 first, fallback to sklearn
