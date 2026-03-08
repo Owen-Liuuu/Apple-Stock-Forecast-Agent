@@ -109,6 +109,8 @@ class StockPredictionService:
         # CNN-LSTM — input (batch, window, 1)
         cnn_file = _resolve(cnn_lstm_path)
         self.cnn_model = None
+        print(f'[CNN-LSTM] Path: {cnn_file}')
+        print(f'[CNN-LSTM] Exists: {cnn_file.exists()}')
         if cnn_file.exists():
             try:
                 print('[CNN-LSTM] Loading ...')
