@@ -109,20 +109,23 @@ class StockPredictionService:
         # CNN-LSTM — input (batch, window, 1)
         cnn_file = _resolve(cnn_lstm_path)
         self.cnn_model = None
-        print(f'[CNN-LSTM] Path: {cnn_file}')
-        print(f'[CNN-LSTM] Exists: {cnn_file.exists()}')
+        self.cnn_debug = {
+            "path": str(cnn_file),
+            "exists": cnn_file.exists(),
+            "loaded": False,
+            "error": None,
+        }
         if cnn_file.exists():
             try:
-                print('[CNN-LSTM] Loading ...')
                 self.cnn_model = load_model(str(cnn_file), compile=False)
                 self.cnn_window = int(self.cnn_model.input_shape[1])
                 self.cnn_feature_dim = int(self.cnn_model.input_shape[-1])
-                print(f'[CNN-LSTM] Ready (window={self.cnn_window})')
+                self.cnn_debug["loaded"] = True
             except Exception as e:
-                print(f'[CNN-LSTM] Failed to load: {e}')
                 self.cnn_model = None
+                self.cnn_debug["error"] = str(e)
         else:
-            print(f'[CNN-LSTM] Not found: {cnn_file}')
+            self.cnn_debug["error"] = "file not found"
 
         # Linear — try .h5 first, fallback to sklearn
         linear_file = _resolve(linear_path)
