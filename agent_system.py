@@ -3,7 +3,7 @@
 AI Investment Agent System — Multi-Model Edition
 Supports MLP, CNN-LSTM, and Linear Regression with model comparison.
 """
-
+import streamlit as st
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -155,7 +155,7 @@ def _is_stock_question(question: str) -> bool:
     return any(k in q for k in stock_keywords)
 
 def _call_gemini(prompt):
-    api_key = os.getenv('GOOGLE_API_KEY', '').strip()
+    api_key = st.secrets.get("GOOGLE_API_KEY", "").strip() or os.getenv("GOOGLE_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError('GOOGLE_API_KEY is not set in environment or Streamlit Secrets')
     last_error = None
