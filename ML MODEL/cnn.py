@@ -1,7 +1,6 @@
 # cnn_lstm_hybrid.py
 """
 CNN-LSTM混合模型训练脚本
-基于原CNN.py修改，添加LSTM层
 """
 
 import pandas as pd
@@ -145,7 +144,7 @@ y_train, y_test = y_seq[:train_size], y_seq[train_size:]
 print(f"✓ 训练集: {X_train.shape[0]}样本, 测试集: {X_test.shape[0]}样本")
 
 # ─────────────────────────────────────────────────────────────
-# 4. 构建CNN-LSTM混合模型 ⭐ 关键部分！
+# 4. 构建CNN-LSTM混合模型 
 # ─────────────────────────────────────────────────────────────
 print("\n[4/7] 构建CNN-LSTM混合模型...")
 
@@ -170,7 +169,7 @@ model = Sequential([
     MaxPooling1D(pool_size=2),
     Dropout(0.2),
 
-    # ─── LSTM部分：时序依赖建模 ⭐ 新增！ ───
+    # ─── LSTM部分：时序依赖建模  ───
     LSTM(128, return_sequences=True, name='lstm_1'),
     Dropout(0.3),
     
